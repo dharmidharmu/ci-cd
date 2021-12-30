@@ -1,7 +1,9 @@
 name: Ci-Cd
 on: 
   pull_request:
-    branches: [develop ]
+    branches: [develop]
+  push:
+    branches: [develop]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,5 +14,14 @@ jobs:
         with:
           node-version: "16.x"
       - run: npm ci  
-      - run: npm run fomat:check
+      - run: npm run format:check
+      - name: build project
+        if: github.event_name == "push"
+        run: npm run build
+      - name: Deploy to staging
+        if: github.event_name == "push"
+        run: npx surge --project ./dist/ci-cd --domain http://somber-carriage.surge.sh/
+        env:
+          SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+          SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
           
