@@ -13,6 +13,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "16.x"
+      - name: cache node modules
+        uses: action/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{runner.os}}-node-{{hashFiles('**/package-lock.json')}}
+          restore-key: |
+            ${{runner.os}}-node-
       - run: npm ci  
       - run: npm run format:check
       - name: build project
