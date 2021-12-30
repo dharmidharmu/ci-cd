@@ -25,6 +25,12 @@ jobs:
       - name: build project
         if: github.event_name == 'push'
         run: npm run build
+      - name: build artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v1
+        with: 
+          name: build artifact
+          path: dist/ci-cd
       - name: Deploy to staging
         if: github.event_name == 'push'
         run: npx surge --project ./dist/ci-cd --domain http://somber-carriage.surge.sh/
