@@ -1,6 +1,6 @@
 module.exports = {
     branches: "master",
-    repositoryUrl: "https://github.com/dharmidharmu/",
+    repositoryUrl: "https://github.com/dharmidharmu/ci-cd",
     "plugins": [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
