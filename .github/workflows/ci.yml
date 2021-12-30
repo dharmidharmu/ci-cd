@@ -16,10 +16,10 @@ jobs:
       - run: npm ci  
       - run: npm run format:check
       - name: build project
-        if: github.event_name == "push"
+        if: github.event_name == 'push'
         run: npm run build
       - name: Deploy to staging
-        if: github.event_name == "push"
+        if: github.event_name == 'push'
         run: npx surge --project ./dist/ci-cd --domain http://somber-carriage.surge.sh/
         env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
